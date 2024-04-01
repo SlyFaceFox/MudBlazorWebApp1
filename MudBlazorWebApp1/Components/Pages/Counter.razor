@@ -1,0 +1,48 @@
+﻿@page "/counter"
+@rendermode InteractiveServer
+
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudText Typo="Typo.h3" GutterBottom="true">Counter</MudText>
+<MudTextField @bind-Value="TextValue" Label="Filled" Variant="Variant.Filled"></MudTextField>
+<MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="Add">Click me</MudButton>
+
+
+<MudSimpleTable Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            @foreach (var h in headings)
+            {
+                <th>@h</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in rows)
+        {
+            <tr>
+                @foreach (var x in row.Split())
+                {
+                    <td>@x</td>
+                }
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+
+@code 
+{
+
+    string[] headings = { "ID", "Name", "Date", "Time"};
+    List<string> rows = new List<string>();
+    public string TextValue { get; set; }
+
+    private void Add()
+    {
+        rows.Add($@"{rows.Count + 1} {TextValue.ToString()} {DateTime.Now}");
+    }
+
+
+}
